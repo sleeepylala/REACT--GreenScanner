@@ -1,0 +1,11 @@
+.section-info {
+  border: 2px solid orange;
+  min-height: 800px;
+}
+.title-section {
+  font-size: 48px;
+  letter-spacing: 3px;
+}
+.container-icon {
+  font-size: 18.34pxpx;
+}

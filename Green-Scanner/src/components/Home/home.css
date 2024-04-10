@@ -1,8 +1,9 @@
 .section-home {
   border: 2px solid #f00;
-  height: 100vh; /* Altezza a 100% dell'altezza della finestra */
+  min-height: 850px;
   background-image: url("../../assets/images/bg-hero.svg");
-  background-size: cover; /* Copri l'intera area */
+  background-repeat: no-repeat;
+
   background-position: center;
 }
 .container-h1 {
