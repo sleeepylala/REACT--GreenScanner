@@ -1,0 +1,26 @@
+.section-home {
+  border: 2px solid #f00;
+  height: 100vh; /* Altezza a 100% dell'altezza della finestra */
+  background-image: url("../../assets/images/bg-hero.svg");
+  background-size: cover; /* Copri l'intera area */
+  background-position: center;
+}
+.container-h1 {
+  line-height: 65px;
+}
+.span-home {
+  font-size: 85px;
+  letter-spacing: 15px;
+}
+.title-home {
+  font-size: 36px;
+
+  letter-spacing: 3px;
+}
+.p-hero {
+  font-size: 18.34px;
+}
+
+.btn-hero {
+  font-size: 18.34px;
+}
