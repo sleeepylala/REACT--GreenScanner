@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 import "./home.css";
 
@@ -20,9 +21,7 @@ const Home = () => {
         </p>
       </div>
       <div className="container-btn flex justify-center items-center mt-40">
-        <button className="bg-primary btn-hero border-white border-2 rounded-full py-5 px-20 text-white font-red-hat-display">
-          calculate now
-        </button>
+        <Button />
       </div>
     </section>
   );
