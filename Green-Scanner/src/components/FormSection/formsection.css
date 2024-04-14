@@ -6,10 +6,3 @@
 
   background-position: bottom;
 }
-
-form {
-  min-width: 700px;
-  background-color: rgba(42, 70, 81, 0.95);
-  padding: 50px 100px;
-  border-radius: 40px;
-}
