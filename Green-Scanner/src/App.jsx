@@ -6,6 +6,8 @@ import SupportSection from "./components/Section Support/SupportSection";
 import FormSection from "./components/FormSection/FormSection";
 import Footer from "./components/Footer/Footer";
 
+import ResultModal from "./components/ResultModal/ResultModal";
+
 import "./App.css";
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
       <InfoSection />
       <SupportSection />
       <FormSection />
+      <ResultModal />
       <Footer />
     </div>
   );

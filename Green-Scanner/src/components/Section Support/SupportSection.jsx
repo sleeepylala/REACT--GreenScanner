@@ -10,17 +10,31 @@ const SupportSection = () => {
           <h1 className="title-section text-primary font-outfit font-bold">
             WHAT CAN WE DO?
           </h1>
-          <p className="support-p mt-24 w-96 text-left font-red-hat-display">
-            Flight footprints shed light on the environmental impact of air
-            travel, urging us to explore eco-friendly alternatives. <br />
-            From opting for airlines with lower emissions to embracing
-            sustainable modes of transportation like trains or electric
-            vehicles, there's a world of greener choices awaiting adventurers.{" "}
-            <br />
-            By choosing these greener alternatives, travelers not only reduce
-            their carbon footprint but also contribute to the preservation of
-            natural resources and the protection of fragile ecosystems. <br />
-          </p>
+          <div className="support-p mt-24 w-96 text-left font-red-hat-display">
+            <p className="mb-3">
+              Flight footprints shed light on the environmental impact of air
+              travel, urging us to explore{" "}
+              <span className="font-bold text-primary">
+                eco-friendly alternatives.
+              </span>
+            </p>
+            <p className="mb-3">
+              From opting for airlines with lower emissions to embracing
+              sustainable modes of transportation like trains or electric
+              vehicles,{" "}
+              <span className="font-bold text-primary">
+                there's a world of greener choices awaiting adventurers.
+              </span>
+            </p>
+            <p className="mb-3">
+              By choosing these greener alternatives, travelers not only reduce
+              their carbon footprint but also{" "}
+              <span className="font-bold text-primary">
+                contribute to the preservation of natural resources
+              </span>{" "}
+              and the protection of fragile ecosystems. <br />
+            </p>
+          </div>
         </div>
         <div className="col-span-6 border-4 border-blue-600 flex items-center justify-center">
           <img src={Supportimg} alt="" className="" />
