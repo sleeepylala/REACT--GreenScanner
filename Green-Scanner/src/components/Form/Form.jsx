@@ -3,7 +3,11 @@ import "./form.css";
 import Button from "../Button";
 import { BsFillPeopleFill } from "react-icons/bs";
 
-const Form = () => {
+const Form = ({ onSubmit }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(true);
+  };
   return (
     <form className="">
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -72,7 +76,7 @@ const Form = () => {
       </div>
 
       <div className="container-btn-form flex justify-center items-center mt-10">
-        <Button href="#results" />
+        <Button href="#results" onSubmit={handleSubmit} />
       </div>
     </form>
   );
