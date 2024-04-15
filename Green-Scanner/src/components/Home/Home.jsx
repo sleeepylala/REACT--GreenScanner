@@ -21,7 +21,7 @@ const Home = () => {
         </p>
       </div>
       <div className="container-btn flex justify-center items-center mt-40">
-        <Button />
+        <Button href="#calculate" />
       </div>
     </section>
   );

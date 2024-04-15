@@ -4,7 +4,10 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const ResultModal = () => {
   return (
-    <div className="form-section bg-primary flex  justify-center items-center">
+    <div
+      id="results"
+      className="form-section bg-primary flex  justify-center items-center"
+    >
       <form className="flex justify-center flex-col items-center ">
         <div className=" container-text  flex flex-wrap -mx-3 mb-6 flex-col items-center ">
           <h1 className="font-bold font-red-hat-display  text-primary mb-3 text-2xl ">
@@ -26,9 +29,12 @@ const ResultModal = () => {
               color: "#00BFA6",
             }}
           />
-          <button className=" ms-3 rounded-full text-white font-red-hat-display">
+          <a
+            href="#calculate"
+            className=" ms-3 rounded-full text-white font-red-hat-display"
+          >
             calculate again
-          </button>
+          </a>
         </div>
       </form>
     </div>

@@ -72,7 +72,7 @@ const Form = () => {
       </div>
 
       <div className="container-btn-form flex justify-center items-center mt-10">
-        <Button />
+        <Button href="#results" />
       </div>
     </form>
   );

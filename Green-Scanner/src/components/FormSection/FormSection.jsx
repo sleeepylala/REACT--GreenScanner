@@ -4,7 +4,10 @@ import Form from "../Form/Form";
 
 const FormSection = () => {
   return (
-    <div className="form-section bg-primary flex justify-center items-center">
+    <div
+      id="calculate"
+      className="form-section bg-primary flex justify-center items-center"
+    >
       <Form />
     </div>
   );
