@@ -2,7 +2,11 @@ import React from "react";
 import "./resultmodal.css";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-const ResultModal = () => {
+const ResultModal = ({ setShowModal }) => {
+  const handleCalculateAgain = () => {
+    setShowModal(false); // Nascondi il modal
+  };
+
   return (
     <div
       id="results"
@@ -31,6 +35,7 @@ const ResultModal = () => {
           />
           <a
             href="#calculate"
+            onClick={handleCalculateAgain}
             className=" ms-3 rounded-full text-white font-red-hat-display"
           >
             calculate again
