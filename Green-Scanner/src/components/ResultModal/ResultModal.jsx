@@ -1,5 +1,6 @@
 import React from "react";
 import "./resultmodal.css";
+
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const ResultModal = ({ setShowModal }) => {
@@ -12,7 +13,7 @@ const ResultModal = ({ setShowModal }) => {
       id="results"
       className="form-section bg-primary flex  justify-center items-center"
     >
-      <form className="flex justify-center flex-col items-center ">
+      <form className=" flex justify-center flex-col items-center ">
         <div className=" container-text  flex flex-wrap -mx-3 mb-6 flex-col items-center ">
           <h1 className="font-bold font-red-hat-display  text-primary mb-3 text-2xl ">
             {" "}

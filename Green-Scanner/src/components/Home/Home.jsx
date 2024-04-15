@@ -5,7 +5,7 @@ import "./home.css";
 
 const Home = () => {
   return (
-    <section className="section-home flex flex-col">
+    <section id="home" className="section-home flex flex-col">
       <div className="container-h1 font-outfit flex justify-center items-center flex-row border-4 border-blue-500 mt-16 text-center">
         <h1 className="title-home mb-0">
           What is your <br />
