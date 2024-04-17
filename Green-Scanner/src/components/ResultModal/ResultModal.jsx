@@ -3,7 +3,7 @@ import "./resultmodal.css";
 
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-const ResultModal = ({ setShowModal }) => {
+const ResultModal = ({ setShowModal, footprintResult }) => {
   const handleCalculateAgain = () => {
     setShowModal(false); // Nascondi il modal
   };
@@ -25,7 +25,7 @@ const ResultModal = ({ setShowModal }) => {
         </div>
         <div className="container-results mt-7">
           <h1 className="font-bold font-red-hat-display text-4xl text-primary">
-            CO₂ amount : 20 t
+            CO₂ amount : {footprintResult} t
           </h1>
         </div>
         <div className="container-btn-result mt-14 flex flex-row items-center">

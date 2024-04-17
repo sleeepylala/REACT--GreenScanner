@@ -7,7 +7,7 @@ const FetchFootprint = async () => {
     password: "",
   };
   const params = {
-    "segments[0][origin]": "ARN",
+    "segments[0][origin]": "AAA",
     "segments[0][destination]": "BCN",
     cabin_class: "economy",
     "currencies[]": "SEK",
@@ -21,6 +21,8 @@ const FetchFootprint = async () => {
     }
   );
   console.log(JSON.stringify(response.data));
+  const footprintResult = response.data.footprint;
+  return footprintResult;
 };
 
 export default FetchFootprint;
