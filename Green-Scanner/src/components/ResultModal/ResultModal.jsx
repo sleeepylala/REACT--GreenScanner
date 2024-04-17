@@ -3,10 +3,13 @@ import "./resultmodal.css";
 
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-const ResultModal = ({ setShowModal, footprintResult }) => {
+const ResultModal = ({ setShowModal, footprintResult, numberPassengers }) => {
   const handleCalculateAgain = () => {
     setShowModal(false); // Nascondi il modal
   };
+
+  const footprintPerPerson = footprintResult;
+  const totalFootprint = footprintPerPerson * numberPassengers;
 
   return (
     <div
@@ -23,9 +26,12 @@ const ResultModal = ({ setShowModal, footprintResult }) => {
             Here is the footprint of your flight
           </h2>
         </div>
-        <div className="container-results mt-7">
-          <h1 className="font-bold font-red-hat-display text-4xl text-primary">
-            CO₂ amount : {footprintResult} t
+        <div className="container-results mt-7 flex flex-col space-y-5 text-center">
+          <h2 className="font-bold font-red-hat-display text-xl text-primary">
+            CO₂ for passengers : {footprintPerPerson.toFixed(2)} t
+          </h2>
+          <h1 className="font-bold font-red-hat-display text-3xl text-primary">
+            CO₂ amount for {numberPassengers} passengers : {totalFootprint} t
           </h1>
         </div>
         <div className="container-btn-result mt-14 flex flex-row items-center">

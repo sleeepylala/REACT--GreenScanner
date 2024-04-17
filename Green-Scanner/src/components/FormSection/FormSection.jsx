@@ -7,6 +7,12 @@ import handleFetchFootprint from "../../ClientAPI/footprint/handleFetchFootprint
 const FormSection = () => {
   const [showModal, setShowModal] = useState(false);
   const [footprintResult, setFootprintResult] = useState(null);
+  const [numberPassengers, setNumberPassengers] = useState(1);
+
+  const handleFormSubmit = (numberPassengers) => {
+    setNumberPassengers(numberPassengers);
+    handleFetchFootprint(setShowModal, setFootprintResult);
+  };
 
   return (
     <div
@@ -17,13 +23,10 @@ const FormSection = () => {
         <ResultModal
           setShowModal={setShowModal}
           footprintResult={footprintResult}
+          numberPassengers={numberPassengers}
         />
       ) : (
-        <Form
-          onSubmit={() =>
-            handleFetchFootprint(setShowModal, setFootprintResult)
-          }
-        />
+        <Form onSubmit={handleFormSubmit} />
       )}
     </div>
   );

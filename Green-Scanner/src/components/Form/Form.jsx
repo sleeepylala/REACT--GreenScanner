@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./form.css";
 import Button from "../Button";
 import { BsFillPeopleFill } from "react-icons/bs";
 
 const Form = ({ onSubmit }) => {
+  const [numberPassengers, setNumberPassengers] = useState(1);
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(true);
+    onSubmit(numberPassengers);
   };
+  const handleNumberPassengersChange = (e) => {
+    const value = parseInt(e.target.value);
+    setNumberPassengers(value);
+    console.log(value);
+  };
+
   return (
     <form className="">
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -69,6 +76,8 @@ const Form = ({ onSubmit }) => {
           />
           <input
             type="number"
+            value={numberPassengers}
+            onChange={handleNumberPassengersChange}
             className="block appearance-none w-20 bg-transparent border-none text-white rounded focus:outline-none focus:border-gray-500 "
             placeholder="1"
           />
