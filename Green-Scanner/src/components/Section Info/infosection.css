@@ -9,3 +9,6 @@
 .container-icon {
   font-size: 18.34px;
 }
+
+@media (max-width: 640px) {
+}

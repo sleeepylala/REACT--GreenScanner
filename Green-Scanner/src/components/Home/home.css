@@ -25,3 +25,28 @@
 .btn-hero {
   font-size: 18.34px;
 }
+
+@media (max-width: 640px) {
+  .span-home {
+    font-size: 55px;
+    letter-spacing: 0;
+  }
+  .title-home {
+    font-size: 23px;
+  }
+  .section-home {
+    background-image: url("../../assets/images/bg-hero-mobile.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    background-size: contain;
+    min-height: 700px;
+  }
+  .container-btn {
+    margin-top: 35px !important;
+  }
+
+  .p-hero {
+    display: none;
+  }
+}

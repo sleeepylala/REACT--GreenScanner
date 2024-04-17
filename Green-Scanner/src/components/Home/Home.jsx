@@ -5,13 +5,11 @@ import "./home.css";
 
 const Home = () => {
   return (
-    <section id="home" className="section-home flex flex-col">
-      <div className="container-h1 font-outfit flex justify-center items-center flex-row border-4 border-blue-500 mt-16 text-center">
-        <h1 className="title-home mb-0">
+    <section id="home" className="section-home flex flex-col ">
+      <div className="container-h1 font-outfit flex justify-center items-center border-4 border-blue-500  text-center">
+        <h1 className="title-home">
           What is your <br />
-          <span className="text-primary mt-0  span-home">
-            Flight Footprint?
-          </span>
+          <span className="text-primary span-home">Flight Footprint?</span>
         </h1>
       </div>
       <div className="container-p flex justify-center font-red-hat-display">

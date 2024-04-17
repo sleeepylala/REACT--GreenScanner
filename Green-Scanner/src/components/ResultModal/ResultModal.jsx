@@ -27,12 +27,12 @@ const ResultModal = ({ setShowModal, footprintResult, numberPassengers }) => {
           </h2>
         </div>
         <div className="container-results mt-7 flex flex-col space-y-5 text-center">
-          <h2 className="font-bold font-red-hat-display text-xl text-primary">
-            CO₂ for passengers : {footprintPerPerson.toFixed(2)} t
-          </h2>
           <h1 className="font-bold font-red-hat-display text-3xl text-primary">
             CO₂ amount for {numberPassengers} passengers : {totalFootprint} t
           </h1>
+          <h2 className="font-bold font-red-hat-display text-lg text-white">
+            CO₂ for passenger : {footprintPerPerson.toFixed(2)} t
+          </h2>
         </div>
         <div className="container-btn-result mt-14 flex flex-row items-center">
           <AiOutlineArrowLeft
