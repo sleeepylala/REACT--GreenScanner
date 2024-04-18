@@ -11,7 +11,7 @@ const Button = ({ href, onSubmit }) => {
     <a
       href={href}
       onClick={handleClick}
-      className="bg-primary btn-hero border-white border-2 rounded-full py-5 px-20 text-white font-red-hat-display"
+      className="bg-primary btn-hero border-white border-2 rounded-full py-5 lg:px-20 px-10  text-white font-red-hat-display"
     >
       calculate now
     </a>

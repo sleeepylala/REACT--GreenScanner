@@ -15,7 +15,14 @@
 }
 
 .container-wrapper {
-  padding: 30px 40px;
+  padding: 0 40px;
+  padding-top: 100px;
+}
+@media (max-width: 1000px) {
+  .container-wrapper {
+    padding: 0 40px;
+    padding-top: 30px;
+  }
 }
 
 select {

@@ -5,3 +5,9 @@ footer {
 .text-footer {
   font-size: 30px;
 }
+
+@media (max-width: 800px) {
+  .text-footer {
+    font-size: 20px;
+  }
+}

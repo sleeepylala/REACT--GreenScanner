@@ -10,8 +10,8 @@
 @media (max-width: 800px) {
   .form-section {
     border: 2px solid blue;
-    min-height: 800px;
+    min-height: 700px;
     background-image: none;
-    padding: 0 30px;
+    padding: 0 10px;
   }
 }
