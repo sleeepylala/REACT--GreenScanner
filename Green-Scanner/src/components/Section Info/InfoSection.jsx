@@ -14,9 +14,9 @@ const InfoSection = () => {
         </h1>
       </div>
       <div className="container-icon mt-16 border-2 border-blue-500 font-red-hat-display">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 justify-center">
           <div className="flex flex-col items-center space-y-10">
-            <div className="rounded-full bg-white p-8 w-80 h-80 flex justify-center items-center">
+            <div className="container-img rounded-full bg-white p-8 w-80 h-80 flex justify-center items-center">
               <img src={Icon1} alt="" className="w-80 h-80" />
             </div>
             <p className="text-center w-80">
@@ -25,7 +25,7 @@ const InfoSection = () => {
             </p>
           </div>
           <div className="flex flex-col items-center space-y-10">
-            <div className="rounded-full bg-white p-8 w-80 h-80 flex justify-center items-center">
+            <div className="container-img rounded-full bg-white p-8 w-80 h-80 flex justify-center items-center">
               <img src={Icon2} alt="" className="w-52 h-52" />
             </div>
             <p className="text-center w-80">
@@ -34,7 +34,7 @@ const InfoSection = () => {
             </p>
           </div>
           <div className="flex flex-col items-center space-y-10">
-            <div className="rounded-full bg-white p-8 w-80 h-80 flex justify-center items-center">
+            <div className="container-img rounded-full bg-white p-8 w-80 h-80 flex justify-center items-center">
               <img src={Icon3} alt="" className="w-40 h-40" />
             </div>
             <p className="text-center w-80">
