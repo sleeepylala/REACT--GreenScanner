@@ -6,3 +6,41 @@
 .support-p {
   font-size: 18.34px;
 }
+@media (max-width: 1000px) {
+  .container-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+  }
+  .title-section {
+    font-size: 35px;
+    letter-spacing: 0;
+  }
+  .img-support {
+    padding: 50px 50px;
+  }
+  .support-p {
+    width: 100% !important;
+  }
+  .container-text {
+    padding: 20px 100px;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 300px) {
+  .container-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+  }
+  .title-section {
+    font-size: 35px;
+    letter-spacing: 0;
+  }
+  .img-support {
+    padding: 50px 50px;
+  }
+  .container-text {
+    padding: 0 50px;
+  }
+}

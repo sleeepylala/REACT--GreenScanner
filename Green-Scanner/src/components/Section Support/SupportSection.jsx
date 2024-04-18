@@ -4,13 +4,13 @@ import Supportimg from "../../assets/images/green-heart.svg";
 
 const SupportSection = () => {
   return (
-    <section className="support-section px-24 ">
-      <div className="grid grid-cols-1 md:grid-cols-12 items-center mt-24 px-24">
-        <div className="col-span-6">
+    <section className="support-section">
+      <div className=" container-grid grid grid-cols-1 md:grid-cols-12 items-center xl:px-24 pt-24 ">
+        <div className="container-text col-span-6">
           <h1 className="title-section text-primary font-outfit font-bold">
             WHAT CAN WE DO?
           </h1>
-          <div className="support-p mt-24 w-96 text-left font-red-hat-display">
+          <div className="support-p pt-20 w-96 text-left font-red-hat-display">
             <p className="mb-3">
               Flight footprints shed light on the environmental impact of air
               travel, urging us to explore{" "}
@@ -36,7 +36,7 @@ const SupportSection = () => {
             </p>
           </div>
         </div>
-        <div className="col-span-6 border-4 border-blue-600 flex items-center justify-center">
+        <div className="img-support col-span-6 border-4 border-blue-600 flex items-center justify-center">
           <img src={Supportimg} alt="" className="" />
         </div>
       </div>
