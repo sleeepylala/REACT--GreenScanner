@@ -6,3 +6,12 @@
 
   background-position: bottom;
 }
+
+@media (max-width: 800px) {
+  .form-section {
+    border: 2px solid blue;
+    min-height: 800px;
+    background-image: none;
+    padding: 0 30px;
+  }
+}
