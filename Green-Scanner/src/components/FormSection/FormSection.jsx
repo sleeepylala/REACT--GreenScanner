@@ -9,9 +9,10 @@ const FormSection = () => {
   const [footprintResult, setFootprintResult] = useState(null);
   const [numberPassengers, setNumberPassengers] = useState(1);
 
-  const handleFormSubmit = (numberPassengers) => {
+  // La funzione handleFormSubmit ora prende solo params
+  const handleFormSubmit = (params, numberPassengers) => {
     setNumberPassengers(numberPassengers);
-    handleFetchFootprint(setShowModal, setFootprintResult);
+    handleFetchFootprint(params, setShowModal, setFootprintResult);
   };
 
   return (

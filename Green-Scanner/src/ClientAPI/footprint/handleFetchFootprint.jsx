@@ -1,9 +1,13 @@
 import React from "react";
 import FetchFootprint from "./fetchFootprint";
 
-const handleFetchFootprint = async (setShowModal, setFootprintResult) => {
+const handleFetchFootprint = async (
+  params,
+  setShowModal,
+  setFootprintResult
+) => {
   try {
-    const result = await FetchFootprint();
+    const result = await FetchFootprint(params);
     setFootprintResult(result);
     setShowModal(true);
   } catch (error) {

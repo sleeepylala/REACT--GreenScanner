@@ -5,14 +5,42 @@ import { BsFillPeopleFill } from "react-icons/bs";
 
 const Form = ({ onSubmit }) => {
   const [numberPassengers, setNumberPassengers] = useState(1);
+  const [classPassenger, setClassPassenger] = useState("Economy");
+  const [airportOrigin, setAirportOrigin] = useState("");
+  const [airportDestination, setAirportDestination] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(numberPassengers);
+    const params = {
+      "segments[0][origin]": "AAA",
+      "segments[0][destination]": "AAE",
+      cabin_class: classPassenger.toLowerCase(),
+      currencies: ["SEK", "USD"],
+    };
+
+    onSubmit(params, numberPassengers);
   };
+
   const handleNumberPassengersChange = (e) => {
     const value = parseInt(e.target.value);
     setNumberPassengers(value);
     console.log(value);
+  };
+  const handleClassPassengersChange = (e) => {
+    const valueClass = e.target.value;
+    setClassPassenger(valueClass);
+    console.log(valueClass);
+  };
+
+  const handleOriginChange = (e) => {
+    const valueAirportOrigin = e.target.value;
+    setAirportOrigin(valueAirportOrigin);
+    console.log(valueAirportOrigin);
+  };
+
+  const handleDestinationChange = (e) => {
+    const valueAirportDestination = e.target.value;
+    setAirportDestination(valueAirportDestination);
   };
 
   return (
@@ -30,6 +58,8 @@ const Form = ({ onSubmit }) => {
             id="grid-first-name"
             type="text"
             placeholder="Airport Name"
+            value={airportOrigin}
+            onChange={handleOriginChange}
           />
           <p className="text-red-500 text-xs italic">
             Please fill out this field.
@@ -47,6 +77,8 @@ const Form = ({ onSubmit }) => {
             id="grid-last-name"
             type="text"
             placeholder="Airport Name"
+            value={airportDestination}
+            onChange={handleDestinationChange}
           />
         </div>
       </div>
@@ -62,9 +94,12 @@ const Form = ({ onSubmit }) => {
           <select
             className="block appearance-none w-full bg-transparent border-none text-white rounded focus:outline-none focus:border-gray-500 pr-8"
             id="grid-city"
+            value={classPassenger}
+            onChange={handleClassPassengersChange}
           >
             <option>Economy</option>
-            <option>First class</option>
+            <option>First</option>
+            <option>Business</option>
           </select>
         </div>
 

@@ -1,16 +1,11 @@
 import axios from "axios";
 import { APIFootprintKey } from "../../../enviroment";
 
-const FetchFootprint = async () => {
+const FetchFootprint = async (params) => {
+  console.log(params);
   const auth = {
     username: APIFootprintKey,
     password: "",
-  };
-  const params = {
-    "segments[0][origin]": "AAA",
-    "segments[0][destination]": "BCN",
-    cabin_class: "economy",
-    "currencies[]": "SEK",
   };
 
   const response = await axios.get(
