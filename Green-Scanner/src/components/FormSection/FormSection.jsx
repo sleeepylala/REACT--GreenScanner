@@ -3,6 +3,7 @@ import "./formsection.css";
 import Form from "../Form/Form";
 import ResultModal from "../ResultModal/ResultModal";
 import handleFetchFootprint from "../../ClientAPI/footprint/handleFetchFootprint";
+import handleFetchAirport from "../../ClientAPI/airportCode/handleFetchAirport";
 
 const FormSection = () => {
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +14,7 @@ const FormSection = () => {
   const handleFormSubmit = (params, numberPassengers) => {
     setNumberPassengers(numberPassengers);
     handleFetchFootprint(params, setShowModal, setFootprintResult);
+    handleFetchAirport(params);
   };
 
   return (

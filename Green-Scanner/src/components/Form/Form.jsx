@@ -2,18 +2,43 @@ import React, { useState } from "react";
 import "./form.css";
 import Button from "../Button";
 import { BsFillPeopleFill } from "react-icons/bs";
+import handleFetchAirport from "../../ClientAPI/airportCode/handleFetchAirport";
 
 const Form = ({ onSubmit }) => {
   const [numberPassengers, setNumberPassengers] = useState(1);
   const [classPassenger, setClassPassenger] = useState("Economy");
   const [airportOrigin, setAirportOrigin] = useState("");
   const [airportDestination, setAirportDestination] = useState("");
+  const [originError, setOriginError] = useState(false);
+  const [destinationError, setDestinationError] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    // Validazione dei campi
+    if (!airportOrigin) {
+      setOriginError(true);
+      return;
+    } else {
+      setOriginError(false);
+    }
+
+    if (!airportDestination) {
+      setDestinationError(true);
+      return;
+    } else {
+      setDestinationError(false);
+    }
+
+    // Recupera il codice dell'aeroporto per l'aeroporto di origine
+    const originAirportCode = await handleFetchAirport({ name: airportOrigin });
+
+    // Recupera il codice dell'aeroporto per l'aeroporto di destinazione
+    const destinationAirportCode = await handleFetchAirport({
+      name: airportDestination,
+    });
+
     const params = {
-      "segments[0][origin]": "AAA",
-      "segments[0][destination]": "AAE",
+      "segments[0][origin]": originAirportCode,
+      "segments[0][destination]": destinationAirportCode,
       cabin_class: classPassenger.toLowerCase(),
       currencies: ["SEK", "USD"],
     };
@@ -54,16 +79,20 @@ const Form = ({ onSubmit }) => {
             FROM :
           </label>
           <input
-            className="appearance-none rounded-full block w-full bg-gray-200 text-gray-700 border border-red-500 py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className={`appearance-none rounded-full block w-full bg-gray-200 text-gray-700 border ${
+              originError ? "border-red-500" : "border-gray-200"
+            } py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id="grid-first-name"
             type="text"
             placeholder="Airport Name"
             value={airportOrigin}
             onChange={handleOriginChange}
           />
-          <p className="text-red-500 text-xs italic">
-            Please fill out this field.
-          </p>
+          {originError && (
+            <p className="text-red-500 text-xs italic">
+              Please fill out this field.
+            </p>
+          )}
         </div>
         <div className="w-full md:w-1/2 px-3">
           <label
@@ -73,13 +102,20 @@ const Form = ({ onSubmit }) => {
             TO :
           </label>
           <input
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            className={`appearance-none rounded-full block w-full bg-gray-200 text-gray-700 border ${
+              destinationError ? "border-red-500" : "border-gray-200"
+            } py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id="grid-last-name"
             type="text"
             placeholder="Airport Name"
             value={airportDestination}
             onChange={handleDestinationChange}
           />
+          {destinationError && (
+            <p className="text-red-500 text-xs italic">
+              Please fill out this field.
+            </p>
+          )}
         </div>
       </div>
 

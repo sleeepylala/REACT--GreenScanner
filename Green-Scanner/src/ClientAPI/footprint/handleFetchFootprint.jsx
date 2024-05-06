@@ -1,4 +1,3 @@
-import React from "react";
 import FetchFootprint from "./fetchFootprint";
 
 const handleFetchFootprint = async (
