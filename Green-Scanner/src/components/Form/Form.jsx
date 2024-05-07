@@ -3,42 +3,38 @@ import "./form.css";
 import Button from "../Button";
 import { BsFillPeopleFill } from "react-icons/bs";
 import handleFetchAirport from "../../ClientAPI/airportCode/handleFetchAirport";
+import naturalCompare from "natural-compare-lite";
 
 const Form = ({ onSubmit }) => {
   const [numberPassengers, setNumberPassengers] = useState(1);
   const [classPassenger, setClassPassenger] = useState("Economy");
-  const [airportOrigin, setAirportOrigin] = useState("");
-  const [airportDestination, setAirportDestination] = useState("");
+  const [airportOriginName, setAirportOriginName] = useState("");
+  const [airportOriginCode, setAirportOriginCode] = useState("");
+  const [airportDestinationName, setAirportDestinationName] = useState("");
+  const [airportDestinationCode, setAirportDestinationCode] = useState("");
   const [originError, setOriginError] = useState(false);
   const [destinationError, setDestinationError] = useState(false);
+  const [filteredAirports, setFilteredAirports] = useState([]);
 
   const handleSubmit = async (e) => {
     // Validazione dei campi
-    if (!airportOrigin) {
+    if (!airportOriginCode) {
       setOriginError(true);
       return;
     } else {
       setOriginError(false);
     }
 
-    if (!airportDestination) {
+    if (!airportDestinationCode) {
       setDestinationError(true);
       return;
     } else {
       setDestinationError(false);
     }
 
-    // Recupera il codice dell'aeroporto per l'aeroporto di origine
-    const originAirportCode = await handleFetchAirport({ name: airportOrigin });
-
-    // Recupera il codice dell'aeroporto per l'aeroporto di destinazione
-    const destinationAirportCode = await handleFetchAirport({
-      name: airportDestination,
-    });
-
     const params = {
-      "segments[0][origin]": originAirportCode,
-      "segments[0][destination]": destinationAirportCode,
+      "segments[0][origin]": airportOriginCode,
+      "segments[0][destination]": airportDestinationCode,
       cabin_class: classPassenger.toLowerCase(),
       currencies: ["SEK", "USD"],
     };
@@ -57,15 +53,42 @@ const Form = ({ onSubmit }) => {
     console.log(valueClass);
   };
 
-  const handleOriginChange = (e) => {
-    const valueAirportOrigin = e.target.value;
-    setAirportOrigin(valueAirportOrigin);
-    console.log(valueAirportOrigin);
+  const handleOriginChange = async (e) => {
+    const valueAirportOrigin = e.target.value.toLowerCase();
+    setAirportOriginName(valueAirportOrigin);
+    try {
+      const airports = await handleFetchAirport({ name: valueAirportOrigin });
+      setFilteredAirports(airports);
+    } catch (error) {
+      console.error("Error fetching airports:", error);
+      setFilteredAirports([]);
+    }
   };
 
-  const handleDestinationChange = (e) => {
-    const valueAirportDestination = e.target.value;
-    setAirportDestination(valueAirportDestination);
+  const handleDestinationChange = async (e) => {
+    const valueAirportDestination = e.target.value.toLowerCase();
+    setAirportDestinationName(valueAirportDestination);
+    try {
+      const airports = await handleFetchAirport({
+        name: valueAirportDestination,
+      });
+      setFilteredAirports(airports);
+    } catch (error) {
+      console.error("Error fetching airports:", error);
+      setFilteredAirports([]);
+    }
+  };
+
+  // Funzione per impostare il nome e il codice dell'aeroporto di origine
+  const handleSelectOrigin = (airport) => {
+    setAirportOriginName(airport.name);
+    setAirportOriginCode(airport.code);
+  };
+
+  // Funzione per impostare il nome e il codice dell'aeroporto di destinazione
+  const handleSelectDestination = (airport) => {
+    setAirportDestinationName(airport.name);
+    setAirportDestinationCode(airport.code);
   };
 
   return (
@@ -85,13 +108,25 @@ const Form = ({ onSubmit }) => {
             id="grid-first-name"
             type="text"
             placeholder="Airport Name"
-            value={airportOrigin}
+            value={airportOriginName}
             onChange={handleOriginChange}
           />
           {originError && (
             <p className="text-red-500 text-xs italic">
               Please fill out this field.
             </p>
+          )}
+          {filteredAirports && filteredAirports.length > 0 && (
+            <ul className="suggestions">
+              {filteredAirports.map(
+                (airport, index) =>
+                  airport.name && ( // Check if 'name' property exists
+                    <li key={index} onClick={() => handleSelectOrigin(airport)}>
+                      {airport.name}
+                    </li>
+                  )
+              )}
+            </ul>
           )}
         </div>
         <div className="w-full md:w-1/2 px-3">
@@ -108,13 +143,28 @@ const Form = ({ onSubmit }) => {
             id="grid-last-name"
             type="text"
             placeholder="Airport Name"
-            value={airportDestination}
+            value={airportDestinationName}
             onChange={handleDestinationChange}
           />
           {destinationError && (
             <p className="text-red-500 text-xs italic">
               Please fill out this field.
             </p>
+          )}
+          {filteredAirports && filteredAirports.length > 0 && (
+            <ul className="suggestions">
+              {filteredAirports.map(
+                (airport, index) =>
+                  airport.name && ( // Check if 'name' property exists
+                    <li
+                      key={index}
+                      onClick={() => handleSelectDestination(airport)}
+                    >
+                      {airport.name}
+                    </li>
+                  )
+              )}
+            </ul>
           )}
         </div>
       </div>

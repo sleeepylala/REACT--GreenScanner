@@ -15,23 +15,25 @@ const fetchAirportCode = async (searchParams) => {
     // Trova l'aeroporto corrispondente al valore inserito dall'utente
     const airports = response.data.data;
     const userInput = searchParams.name ? searchParams.name.toLowerCase() : "";
-    const matchingAirport = airports.find(
+    const matchingAirports = airports.filter(
       (airport) =>
         airport.attributes.name.toLowerCase().includes(userInput) ||
         airport.attributes.iata.toLowerCase() === userInput ||
         airport.attributes.icao.toLowerCase() === userInput
     );
 
-    if (!matchingAirport) {
+    if (matchingAirports.length === 0) {
       throw new Error("Airport not found");
     }
+    // Estrai il codice e il nome dell'aeroporto dall'aeroporto corrispondente trovato
+    const airportInfo = matchingAirports.map((airport) => ({
+      code: airport.attributes.iata,
+      name: airport.attributes.name,
+    }));
 
-    // Estrai il codice dell'aeroporto dall'aeroporto corrispondente trovato
-    const airportCode = matchingAirport.attributes.iata;
-
-    return airportCode;
+    return airportInfo;
   } catch (error) {
-    console.error("Error fetching airport code:", error);
+    console.error("Error fetching airport info:", error);
     throw error;
   }
 };
