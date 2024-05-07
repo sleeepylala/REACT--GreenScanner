@@ -83,12 +83,14 @@ const Form = ({ onSubmit }) => {
   const handleSelectOrigin = (airport) => {
     setAirportOriginName(airport.name);
     setAirportOriginCode(airport.code);
+    setFilteredAirports([]); // Nascondi la lista dei suggerimenti dopo la selezione
   };
 
   // Funzione per impostare il nome e il codice dell'aeroporto di destinazione
   const handleSelectDestination = (airport) => {
     setAirportDestinationName(airport.name);
     setAirportDestinationCode(airport.code);
+    setFilteredAirports([]); // Nascondi la lista dei suggerimenti dopo la selezione
   };
 
   return (
@@ -106,29 +108,32 @@ const Form = ({ onSubmit }) => {
               originError ? "border-red-500" : "border-gray-200"
             } py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id="grid-first-name"
-            type="text"
+            type="search"
             placeholder="Airport Name"
+            autoComplete="off"
             value={airportOriginName}
             onChange={handleOriginChange}
           />
-          {originError && (
-            <p className="text-red-500 text-xs italic">
-              Please fill out this field.
-            </p>
-          )}
+
           {filteredAirports && filteredAirports.length > 0 && (
-            <ul className="suggestions">
-              {filteredAirports.map(
-                (airport, index) =>
-                  airport.name && ( // Check if 'name' property exists
-                    <li key={index} onClick={() => handleSelectOrigin(airport)}>
-                      {airport.name}
-                    </li>
-                  )
-              )}
-            </ul>
+            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded w-full shadow-lg max-h-40 overflow-auto">
+              {filteredAirports.map((airport, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleSelectOrigin(airport)}
+                  className="cursor-pointer py-1 hover:bg-gray-100"
+                >
+                  {airport.name}
+                </div>
+              ))}
+            </div>
           )}
         </div>
+        {originError && (
+          <p className="text-red-500 text-xs italic">
+            Please fill out this field.
+          </p>
+        )}
         <div className="w-full md:w-1/2 px-3">
           <label
             className="block uppercase tracking-wide text-primary  text-lg font-bold mb-2"
@@ -141,32 +146,31 @@ const Form = ({ onSubmit }) => {
               destinationError ? "border-red-500" : "border-gray-200"
             } py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id="grid-last-name"
-            type="text"
+            type="search"
             placeholder="Airport Name"
+            autoComplete="off"
             value={airportDestinationName}
             onChange={handleDestinationChange}
           />
-          {destinationError && (
-            <p className="text-red-500 text-xs italic">
-              Please fill out this field.
-            </p>
-          )}
           {filteredAirports && filteredAirports.length > 0 && (
-            <ul className="suggestions">
-              {filteredAirports.map(
-                (airport, index) =>
-                  airport.name && ( // Check if 'name' property exists
-                    <li
-                      key={index}
-                      onClick={() => handleSelectDestination(airport)}
-                    >
-                      {airport.name}
-                    </li>
-                  )
-              )}
-            </ul>
+            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded w-full shadow-lg max-h-40 overflow-auto">
+              {filteredAirports.map((airport, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleSelectDestination(airport)}
+                  className="cursor-pointer py-1 hover:bg-gray-100"
+                >
+                  {airport.name}
+                </div>
+              ))}
+            </div>
           )}
         </div>
+        {destinationError && (
+          <p className="text-red-500 text-xs italic">
+            Please fill out this field.
+          </p>
+        )}
       </div>
 
       <div className="flex flex-row justify-between mt-10">
