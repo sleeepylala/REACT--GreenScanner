@@ -15,8 +15,10 @@ const Form = ({ onSubmit }) => {
   const [originError, setOriginError] = useState(false);
   const [destinationError, setDestinationError] = useState(false);
   const [filteredAirports, setFilteredAirports] = useState([]);
+  const [showOriginAirports, setShowOriginAirports] = useState(false);
+  const [showDestinationAirports, setShowDestinationAirports] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = () => {
     // Validazione dei campi
     if (!airportOriginCode) {
       setOriginError(true);
@@ -56,8 +58,12 @@ const Form = ({ onSubmit }) => {
   const handleOriginChange = async (e) => {
     const valueAirportOrigin = e.target.value.toLowerCase();
     setAirportOriginName(valueAirportOrigin);
+    setShowOriginAirports(true);
+    setShowDestinationAirports(false);
     try {
       const airports = await handleFetchAirport({ name: valueAirportOrigin });
+      // Ordina gli aeroporti in base alla loro somiglianza con la stringa inserita dall'utente
+      airports.sort((a, b) => naturalCompare(a.name, b.name));
       setFilteredAirports(airports);
     } catch (error) {
       console.error("Error fetching airports:", error);
@@ -68,10 +74,13 @@ const Form = ({ onSubmit }) => {
   const handleDestinationChange = async (e) => {
     const valueAirportDestination = e.target.value.toLowerCase();
     setAirportDestinationName(valueAirportDestination);
+    setShowOriginAirports(false);
+    setShowDestinationAirports(true);
     try {
       const airports = await handleFetchAirport({
         name: valueAirportDestination,
       });
+      airports.sort((a, b) => naturalCompare(a.name, b.name));
       setFilteredAirports(airports);
     } catch (error) {
       console.error("Error fetching airports:", error);
@@ -115,8 +124,8 @@ const Form = ({ onSubmit }) => {
             onChange={handleOriginChange}
           />
 
-          {filteredAirports && filteredAirports.length > 0 && (
-            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded w-full shadow-lg max-h-40 overflow-auto">
+          {showOriginAirports && filteredAirports.length > 0 && (
+            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded  shadow-lg max-h-40 overflow-auto">
               {filteredAirports.map((airport, index) => (
                 <div
                   key={index}
@@ -152,8 +161,8 @@ const Form = ({ onSubmit }) => {
             value={airportDestinationName}
             onChange={handleDestinationChange}
           />
-          {filteredAirports && filteredAirports.length > 0 && (
-            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded w-full shadow-lg max-h-40 overflow-auto">
+          {showDestinationAirports && filteredAirports.length > 0 && (
+            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded  w-auto shadow-lg max-h-40 overflow-auto">
               {filteredAirports.map((airport, index) => (
                 <div
                   key={index}
