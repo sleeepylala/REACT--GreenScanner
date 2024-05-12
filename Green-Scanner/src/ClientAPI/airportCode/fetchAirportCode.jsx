@@ -12,10 +12,32 @@ const fetchAirportCode = async (searchParams) => {
       params: searchParams,
     });
 
-    // Trova l'aeroporto corrispondente al valore inserito dall'utente
+    const response2 = await axios.get(
+      "https://airportgap.com/api/airports?page=2",
+      {
+        headers,
+        params: searchParams,
+      }
+    );
+
+    const response3 = await axios.get(
+      "https://airportgap.com/api/airports?page=3",
+      {
+        headers,
+        params: searchParams,
+      }
+    );
+
+    // Attendere che tutte le chiamate siano complete e ottenere i dati
     const airports = response.data.data;
+    const airports2 = response2.data.data;
+    const airports3 = response3.data.data;
+
+    // Unire i risultati in un unico array
+    const allAirports = airports.concat(airports2, airports3);
+
     const userInput = searchParams.name ? searchParams.name.toLowerCase() : "";
-    const matchingAirports = airports.filter(
+    const matchingAirports = allAirports.filter(
       (airport) =>
         airport.attributes.name.toLowerCase().includes(userInput) ||
         airport.attributes.iata.toLowerCase() === userInput ||
@@ -30,8 +52,6 @@ const fetchAirportCode = async (searchParams) => {
       code: airport.attributes.iata,
       name: airport.attributes.name,
     }));
-
-    console.log("search API");
     return airportInfo;
   } catch (error) {
     console.error("Error fetching airport info:", error);

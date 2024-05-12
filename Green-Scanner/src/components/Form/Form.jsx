@@ -17,20 +17,22 @@ const Form = ({ onSubmit }) => {
 
   const [originError, setOriginError] = useState(false);
   const [destinationError, setDestinationError] = useState(false);
-  const [filteredAirports, setFilteredAirports] = useState([]);
-  const [showOriginAirports, setShowOriginAirports] = useState(false);
-  const [showDestinationAirports, setShowDestinationAirports] = useState(false);
 
   const [searchValue, setSearchValue] = useState("");
   const [optionsSearch, setOptionsSearch] = useState([]);
   const [destinationValue, setDestinationValue] = useState("");
   const [optionsDestination, setOptionsDestination] = useState([]);
-  const [isClicked, setIsClicked] = useState(false);
 
   const handleSearch = async (value) => {
     const valueAirportOrigin = value.toLowerCase();
+    const valueCity = value.toLowerCase();
     try {
-      const airports = await handleFetchAirport({ name: valueAirportOrigin });
+      const airports = await handleFetchAirport({
+        name: valueAirportOrigin,
+        city: valueCity,
+      });
+      // Ordina gli aeroporti in base alla loro somiglianza con la stringa inserita dall'utente
+      airports.sort((a, b) => naturalCompare(a.name, b.name));
       const airportOptions = airports.map((airport) => ({
         value: airport.code,
         label: airport.name,
@@ -46,6 +48,8 @@ const Form = ({ onSubmit }) => {
     const valueAirportOrigin = value.toLowerCase();
     try {
       const airports = await handleFetchAirport({ name: valueAirportOrigin });
+      // Ordina gli aeroporti in base alla loro somiglianza con la stringa inserita dall'utente
+      airports.sort((a, b) => naturalCompare(a.name, b.name));
       const airportOptions = airports.map((airport) => ({
         value: airport.code,
         label: airport.name,
@@ -106,66 +110,64 @@ const Form = ({ onSubmit }) => {
 
   return (
     <form className="">
-      <div className="flex flex-wrap -mx-3 mb-6">
+      <div className="flex  -mx-3 mb-6">
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label
-            className="block uppercase tracking-wide text-primary text-lg font-bold mb-2"
-            htmlFor="grid-first-name"
-          >
+          <label className="block uppercase tracking-wide text-primary text-lg font-bold mb-2">
             FROM :
           </label>
           <Select
             showSearch
             style={{ width: "100%" }}
+            placeholder="Departure Airport"
             optionFilterProp="label"
-            defaultActiveFirstOption={false}
-            suffixIcon={null}
             filterOption={false}
             value={airportOriginName}
             onSearch={handleSearch}
             options={optionsSearch}
-            notFoundContent={null}
+            notFoundContent={
+              <span style={{ color: "#999" }}>Airport not found</span>
+            }
             onChange={(value, option) => {
               handleSelectDeparture(option);
               setAirportOriginName(value);
             }}
           />
+          {originError && (
+            <div className="flex">
+              <p className="text-red-500 text-xs italic">
+                Please fill out this field.
+              </p>
+            </div>
+          )}
         </div>
-        {originError && (
-          <p className="text-red-500 text-xs italic">
-            Please fill out this field.
-          </p>
-        )}
+
         <div className="w-full md:w-1/2 px-3">
-          <label
-            className="block uppercase tracking-wide text-primary  text-lg font-bold mb-2"
-            htmlFor="grid-last-name"
-          >
+          <label className="block uppercase tracking-wide text-primary  text-lg font-bold mb-2">
             TO :
           </label>
 
           <Select
             showSearch
-            style={{ width: "100%", border: "1px solid red" }}
-            optionFilterProp="label"
-            defaultActiveFirstOption={false}
-            suffixIcon={null}
+            style={{ width: "100%" }}
+            placeholder="Destination Airport"
             filterOption={false}
+            notFoundContent={
+              <span style={{ color: "#999" }}>Airport not found</span>
+            }
             value={airportDestinationName}
             onSearch={handleDestination}
             options={optionsDestination}
-            notFoundContent={null}
             onChange={(value, option) => {
               handleSelectDestination(option);
               setAirportDestinationName(value);
             }}
           />
+          {destinationError && (
+            <p className="text-red-500 text-xs italic">
+              Please fill out this field.
+            </p>
+          )}
         </div>
-        {destinationError && (
-          <p className="text-red-500 text-xs italic">
-            Please fill out this field.
-          </p>
-        )}
       </div>
 
       <div className="flex flex-row justify-between mt-10">
