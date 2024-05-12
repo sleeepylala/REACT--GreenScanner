@@ -1,22 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./form.css";
 import Button from "../Button";
 import { BsFillPeopleFill } from "react-icons/bs";
 import handleFetchAirport from "../../ClientAPI/airportCode/handleFetchAirport";
 import naturalCompare from "natural-compare-lite";
+import { Select } from "antd";
 
 const Form = ({ onSubmit }) => {
   const [numberPassengers, setNumberPassengers] = useState(1);
   const [classPassenger, setClassPassenger] = useState("Economy");
+
   const [airportOriginName, setAirportOriginName] = useState("");
   const [airportOriginCode, setAirportOriginCode] = useState("");
   const [airportDestinationName, setAirportDestinationName] = useState("");
   const [airportDestinationCode, setAirportDestinationCode] = useState("");
+
   const [originError, setOriginError] = useState(false);
   const [destinationError, setDestinationError] = useState(false);
   const [filteredAirports, setFilteredAirports] = useState([]);
   const [showOriginAirports, setShowOriginAirports] = useState(false);
   const [showDestinationAirports, setShowDestinationAirports] = useState(false);
+
+  const [searchValue, setSearchValue] = useState("");
+  const [optionsSearch, setOptionsSearch] = useState([]);
+  const [destinationValue, setDestinationValue] = useState("");
+  const [optionsDestination, setOptionsDestination] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleSearch = async (value) => {
+    const valueAirportOrigin = value.toLowerCase();
+    try {
+      const airports = await handleFetchAirport({ name: valueAirportOrigin });
+      const airportOptions = airports.map((airport) => ({
+        value: airport.code,
+        label: airport.name,
+      }));
+      setOptionsSearch(airportOptions);
+      setSearchValue(airportOptions);
+    } catch (error) {
+      console.error("Error fetching airports:", error);
+    }
+  };
+
+  const handleDestination = async (value) => {
+    const valueAirportOrigin = value.toLowerCase();
+    try {
+      const airports = await handleFetchAirport({ name: valueAirportOrigin });
+      const airportOptions = airports.map((airport) => ({
+        value: airport.code,
+        label: airport.name,
+      }));
+      setOptionsDestination(airportOptions);
+      setDestinationValue(airportOptions);
+    } catch (error) {
+      console.error("Error fetching airports:", error);
+    }
+  };
 
   const handleSubmit = () => {
     // Validazione dei campi
@@ -26,7 +65,6 @@ const Form = ({ onSubmit }) => {
     } else {
       setOriginError(false);
     }
-
     if (!airportDestinationCode) {
       setDestinationError(true);
       return;
@@ -55,51 +93,15 @@ const Form = ({ onSubmit }) => {
     console.log(valueClass);
   };
 
-  const handleOriginChange = async (e) => {
-    const valueAirportOrigin = e.target.value.toLowerCase();
-    setAirportOriginName(valueAirportOrigin);
-    setShowOriginAirports(true);
-    setShowDestinationAirports(false);
-    try {
-      const airports = await handleFetchAirport({ name: valueAirportOrigin });
-      // Ordina gli aeroporti in base alla loro somiglianza con la stringa inserita dall'utente
-      airports.sort((a, b) => naturalCompare(a.name, b.name));
-      setFilteredAirports(airports);
-    } catch (error) {
-      console.error("Error fetching airports:", error);
-      setFilteredAirports([]);
-    }
-  };
-
-  const handleDestinationChange = async (e) => {
-    const valueAirportDestination = e.target.value.toLowerCase();
-    setAirportDestinationName(valueAirportDestination);
-    setShowOriginAirports(false);
-    setShowDestinationAirports(true);
-    try {
-      const airports = await handleFetchAirport({
-        name: valueAirportDestination,
-      });
-      airports.sort((a, b) => naturalCompare(a.name, b.name));
-      setFilteredAirports(airports);
-    } catch (error) {
-      console.error("Error fetching airports:", error);
-      setFilteredAirports([]);
-    }
-  };
-
-  // Funzione per impostare il nome e il codice dell'aeroporto di origine
-  const handleSelectOrigin = (airport) => {
-    setAirportOriginName(airport.name);
-    setAirportOriginCode(airport.code);
-    setFilteredAirports([]); // Nascondi la lista dei suggerimenti dopo la selezione
+  const handleSelectDeparture = (airport) => {
+    setAirportOriginName(airport.label);
+    setAirportOriginCode(airport.value);
   };
 
   // Funzione per impostare il nome e il codice dell'aeroporto di destinazione
   const handleSelectDestination = (airport) => {
-    setAirportDestinationName(airport.name);
-    setAirportDestinationCode(airport.code);
-    setFilteredAirports([]); // Nascondi la lista dei suggerimenti dopo la selezione
+    setAirportDestinationName(airport.label);
+    setAirportDestinationCode(airport.value);
   };
 
   return (
@@ -112,31 +114,22 @@ const Form = ({ onSubmit }) => {
           >
             FROM :
           </label>
-          <input
-            className={`appearance-none rounded-full block w-full bg-gray-200 text-gray-700 border ${
-              originError ? "border-red-500" : "border-gray-200"
-            } py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-            id="grid-first-name"
-            type="search"
-            placeholder="Airport Name"
-            autoComplete="off"
+          <Select
+            showSearch
+            style={{ width: "100%" }}
+            optionFilterProp="label"
+            defaultActiveFirstOption={false}
+            suffixIcon={null}
+            filterOption={false}
             value={airportOriginName}
-            onChange={handleOriginChange}
+            onSearch={handleSearch}
+            options={optionsSearch}
+            notFoundContent={null}
+            onChange={(value, option) => {
+              handleSelectDeparture(option);
+              setAirportOriginName(value);
+            }}
           />
-
-          {showOriginAirports && filteredAirports.length > 0 && (
-            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded  shadow-lg max-h-40 overflow-auto">
-              {filteredAirports.map((airport, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleSelectOrigin(airport)}
-                  className="cursor-pointer py-1 hover:bg-gray-100"
-                >
-                  {airport.name}
-                </div>
-              ))}
-            </div>
-          )}
         </div>
         {originError && (
           <p className="text-red-500 text-xs italic">
@@ -150,30 +143,23 @@ const Form = ({ onSubmit }) => {
           >
             TO :
           </label>
-          <input
-            className={`appearance-none rounded-full block w-full bg-gray-200 text-gray-700 border ${
-              destinationError ? "border-red-500" : "border-gray-200"
-            } py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-            id="grid-last-name"
-            type="search"
-            placeholder="Airport Name"
-            autoComplete="off"
+
+          <Select
+            showSearch
+            style={{ width: "100%", border: "1px solid red" }}
+            optionFilterProp="label"
+            defaultActiveFirstOption={false}
+            suffixIcon={null}
+            filterOption={false}
             value={airportDestinationName}
-            onChange={handleDestinationChange}
+            onSearch={handleDestination}
+            options={optionsDestination}
+            notFoundContent={null}
+            onChange={(value, option) => {
+              handleSelectDestination(option);
+              setAirportDestinationName(value);
+            }}
           />
-          {showDestinationAirports && filteredAirports.length > 0 && (
-            <div className="absolute z-10 bg-white mt-1 p-2 border border-gray-300 rounded  w-auto shadow-lg max-h-40 overflow-auto">
-              {filteredAirports.map((airport, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleSelectDestination(airport)}
-                  className="cursor-pointer py-1 hover:bg-gray-100"
-                >
-                  {airport.name}
-                </div>
-              ))}
-            </div>
-          )}
         </div>
         {destinationError && (
           <p className="text-red-500 text-xs italic">

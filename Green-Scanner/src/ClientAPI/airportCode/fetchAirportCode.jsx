@@ -23,7 +23,7 @@ const fetchAirportCode = async (searchParams) => {
     );
 
     if (matchingAirports.length === 0) {
-      throw new Error("Airport not found");
+      console.log("Airport not found");
     }
     // Estrai il codice e il nome dell'aeroporto dall'aeroporto corrispondente trovato
     const airportInfo = matchingAirports.map((airport) => ({
@@ -31,6 +31,7 @@ const fetchAirportCode = async (searchParams) => {
       name: airport.attributes.name,
     }));
 
+    console.log("search API");
     return airportInfo;
   } catch (error) {
     console.error("Error fetching airport info:", error);
