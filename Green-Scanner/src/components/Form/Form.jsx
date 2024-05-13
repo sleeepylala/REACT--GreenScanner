@@ -110,7 +110,7 @@ const Form = ({ onSubmit }) => {
 
   return (
     <form className="">
-      <div className="flex  -mx-3 mb-6">
+      <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-primary text-lg font-bold mb-2">
             FROM :
@@ -121,7 +121,7 @@ const Form = ({ onSubmit }) => {
             placeholder="Departure Airport"
             optionFilterProp="label"
             filterOption={false}
-            value={airportOriginName}
+            value={airportOriginName || undefined}
             onSearch={handleSearch}
             options={optionsSearch}
             notFoundContent={
@@ -154,7 +154,7 @@ const Form = ({ onSubmit }) => {
             notFoundContent={
               <span style={{ color: "#999" }}>Airport not found</span>
             }
-            value={airportDestinationName}
+            value={airportDestinationName || undefined}
             onSearch={handleDestination}
             options={optionsDestination}
             onChange={(value, option) => {
@@ -170,14 +170,8 @@ const Form = ({ onSubmit }) => {
         </div>
       </div>
 
-      <div className="flex flex-row justify-between mt-10">
-        <div className="flex flex-row justify-center items-center relative  px-3">
-          <select className="block appearance-none w-full bg-transparent border-none text-white rounded focus:outline-none focus:border-gray-500 pr-8">
-            <option>Round trip</option>
-            <option>One-way trip</option>
-          </select>
-        </div>
-        <div className="flex flex-row justify-center items-center relative  px-3">
+      <div className="flex flex-wrap flex-row justify-between mt-10 space-y-5">
+        <div className="flex flex-row justify-center items-center relative ">
           <select
             className="block appearance-none w-full bg-transparent border-none text-white rounded focus:outline-none focus:border-gray-500 pr-8"
             id="grid-city"
