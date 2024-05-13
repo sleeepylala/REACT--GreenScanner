@@ -5,7 +5,7 @@ import { HiMiniHome } from "react-icons/hi2";
 
 const Navbar = () => {
   return (
-    <nav className="lg:fixed w-full  bg-white flex h-20 border-green-600 border-2 justify-around items-center">
+    <nav className="lg:fixed w-full  bg-white flex h-20   justify-between lg:ps-16 lg:pe-16 pe-5 items-center">
       <img src={logo} alt="logo" className="logo" />
 
       <a href="#home">

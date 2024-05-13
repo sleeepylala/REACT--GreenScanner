@@ -1,5 +1,4 @@
 .form-section {
-  border: 2px solid blue;
   min-height: 800px;
   background-image: url("../../assets/images/bg-form.svg");
   background-repeat: no-repeat;
@@ -9,7 +8,6 @@
 
 @media (max-width: 800px) {
   .form-section {
-    border: 2px solid blue;
     min-height: 700px;
     background-image: none;
     padding: 0 10px;

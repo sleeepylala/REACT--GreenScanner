@@ -40,7 +40,7 @@ const Form = ({ onSubmit }) => {
       setOptionsSearch(airportOptions);
       setSearchValue(airportOptions);
     } catch (error) {
-      console.error("Error fetching airports:", error);
+      console.log("Error fetching airports:", error);
     }
   };
 
@@ -57,7 +57,7 @@ const Form = ({ onSubmit }) => {
       setOptionsDestination(airportOptions);
       setDestinationValue(airportOptions);
     } catch (error) {
-      console.error("Error fetching airports:", error);
+      console.log("Error fetching airports:", error);
     }
   };
 
@@ -87,14 +87,12 @@ const Form = ({ onSubmit }) => {
   };
 
   const handleNumberPassengersChange = (e) => {
-    const value = parseInt(e.target.value);
+    const value = e.target.value;
     setNumberPassengers(value);
-    console.log(value);
   };
   const handleClassPassengersChange = (e) => {
     const valueClass = e.target.value;
     setClassPassenger(valueClass);
-    console.log(valueClass);
   };
 
   const handleSelectDeparture = (airport) => {

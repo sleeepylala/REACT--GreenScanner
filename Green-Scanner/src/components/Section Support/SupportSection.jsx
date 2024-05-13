@@ -6,11 +6,11 @@ const SupportSection = () => {
   return (
     <section className="support-section">
       <div className=" container-grid grid grid-cols-1 md:grid-cols-12 items-center xl:px-24 pt-24 ">
-        <div className="container-text col-span-6">
+        <div className="container-text ps-10 col-span-6">
           <h1 className="title-section text-primary font-outfit font-bold">
             WHAT CAN WE DO?
           </h1>
-          <div className="support-p pt-20 w-96 text-left font-red-hat-display">
+          <div className="support-p pt-10 w-96  text-left font-red-hat-display">
             <p className="mb-3">
               Flight footprints shed light on the environmental impact of air
               travel, urging us to explore{" "}
@@ -36,7 +36,7 @@ const SupportSection = () => {
             </p>
           </div>
         </div>
-        <div className="img-support col-span-6 border-4 border-blue-600 flex items-center justify-center">
+        <div className="img-support col-span-6  flex items-center justify-center">
           <img src={Supportimg} alt="" className="" />
         </div>
       </div>

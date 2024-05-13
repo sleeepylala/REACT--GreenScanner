@@ -6,7 +6,7 @@ import "./home.css";
 const Home = () => {
   return (
     <section id="home" className="section-home flex flex-col ">
-      <div className="container-h1 font-outfit flex justify-center items-center border-4 border-blue-500  text-center">
+      <div className="container-h1 font-outfit flex justify-center items-center  text-center">
         <h1 className="title-home">
           What is your <br />
           <span className="text-primary span-home">Flight Footprint?</span>
