@@ -123,7 +123,9 @@ const Form = ({ onSubmit }) => {
             onSearch={handleSearch}
             options={optionsSearch}
             notFoundContent={
-              <span style={{ color: "#999" }}>Airport not found</span>
+              searchValue && !optionsSearch.length ? (
+                <span style={{ color: "#999" }}>Airport not found</span>
+              ) : null
             }
             onChange={(value, option) => {
               handleSelectDeparture(option);
@@ -150,7 +152,9 @@ const Form = ({ onSubmit }) => {
             placeholder="Destination Airport"
             filterOption={false}
             notFoundContent={
-              <span style={{ color: "#999" }}>Airport not found</span>
+              destinationValue && !optionsDestination.length ? (
+                <span style={{ color: "#999" }}>Airport not found</span>
+              ) : null
             }
             value={airportDestinationName || undefined}
             onSearch={handleDestination}
