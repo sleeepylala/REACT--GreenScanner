@@ -9,14 +9,24 @@ import Icon3 from "../../assets/images/icona-3.svg";
 const InfoSection = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.5,
+    threshold: 0.2,
+    rootMargin: "0px 0px -100px 0px",
   }); // Utilizza useInView per rilevare la visibilità della sezione
   const [isVisible, setIsVisible] = useState(false); // Stato per gestire la visibilità dell'animazione
 
-  useEffect(() => {
+  const checkVisibility = () => {
     if (inView) {
       setIsVisible(true);
+    } else {
     }
+  };
+
+  useEffect(() => {
+    checkVisibility(); // Controlla la visibilità all'avvio
+    window.addEventListener("resize", checkVisibility); // Aggiungi un listener per verificare la visibilità quando la finestra viene ridimensionata
+    return () => {
+      window.removeEventListener("resize", checkVisibility); // Rimuovi il listener quando il componente viene smontato
+    };
   }, [inView]);
 
   return (
