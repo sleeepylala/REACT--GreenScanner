@@ -182,7 +182,7 @@ const Form = ({ onSubmit }) => {
           </select>
         </div>
 
-        <div className="flex flex-row justify-center items-center relative px-3">
+        <div className="input-number flex flex-row justify-center items-center relative px-3">
           <BsFillPeopleFill
             style={{
               color: "#00BFA6",
